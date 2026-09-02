@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Seiler Asterces — Where there is a Will there is a Way</title>
+<meta name="description" content="The visual and audio laboratory of Secrets Are Lies. Deep frequencies, generative ecosystems, dark-mode aesthetics. Best experienced with studio monitors.">
+<meta name="theme-color" content="#04060b">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Seiler Asterces">
+<meta property="og:description" content="Where there is a Will there is a Way. The visual and audio laboratory of Secrets Are Lies.">
+<meta property="og:image" content="https://vcpmark.github.io/seiler-asterces/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --abyss: #04060b;
+    --slate: #1a2433;
+    --ice: #e3ecf2;
+    --ash: #8a97a3;
+    --gilt: #d6c59a;
+    --glow: #6fb3ff;
+    --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+    --sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+    --safe-b: env(safe-area-inset-bottom, 0px);
+    --safe-t: env(safe-area-inset-top, 0px);
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; height: 100%;
+    background: var(--abyss); color: var(--ice);
+    font-family: var(--sans); font-size: 15px; line-height: 1.45;
+    overflow: hidden; overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+  }
+  body { position: fixed; inset: 0; touch-action: none; user-select: none; -webkit-user-select: none; }
+
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--gilt); outline-offset: 3px; border-radius: 2px; }
+
+  /* ---- fractal layer ---- */
+  #fractal { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+  #fallback {
+    position: fixed; inset: 0; display: none;
+    background:
+      radial-gradient(ellipse at 30% 20%, #2a3d5a 0%, transparent 55%),
+      radial-gradient(ellipse at 75% 85%, #16304f 0%, transparent 50%),
+      var(--abyss);
+  }
+  body.no-webgl #fallback { display: block; }
+  body.no-webgl #fractal { display: none; }
+
+  /* ---- hud ---- */
+  .hud {
+    position: fixed; top: calc(18px + var(--safe-t)); left: 22px; right: 22px;
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;
+    z-index: 20; pointer-events: none;
+  }
+  .hud > * { pointer-events: auto; }
+  .brand h1 {
+    margin: 0; font: 400 30px/1 var(--serif); letter-spacing: 0.005em;
+    color: var(--ice); text-shadow: 0 1px 24px rgba(4,6,11,.8);
+  }
+  .brand p { margin: 7px 0 0; max-width: 34ch; color: var(--ash); font-size: 13px; text-shadow: 0 1px 14px rgba(4,6,11,.9); }
+  .yt {
+    flex: none; margin-top: 6px; font-size: 13px; font-weight: 500; text-decoration: none;
+    color: var(--ice); padding: 8px 12px; border: 1px solid rgba(227,236,242,.22); border-radius: 999px;
+    background: rgba(4,6,11,.35); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    transition: border-color .25s, background .25s;
+  }
+  .yt:hover { border-color: rgba(227,236,242,.6); background: rgba(4,6,11,.55); }
+
+  /* ---- epigraph: the one orchestrated reveal ---- */
+  .epigraph {
+    position: fixed; left: 50%; top: 34%; transform: translate(-50%, -50%);
+    margin: 0; padding: 0 20px; width: 100%; text-align: center;
+    font: italic 400 clamp(26px, 4.2vw, 46px)/1.1 var(--serif);
+    color: var(--gilt); letter-spacing: 0.01em;
+    text-shadow: 0 0 40px rgba(214,197,154,.25), 0 1px 12px rgba(4,6,11,.9);
+    opacity: 0; z-index: 10; pointer-events: none;
+    transition: opacity 1.8s cubic-bezier(.2,.6,.2,1);
+  }
+  .epigraph span { display: inline-block; white-space: nowrap; }
+  .epigraph.on { opacity: 1; }
+
+  /* ---- video ring ---- */
+  .ring { position: fixed; inset: 0; z-index: 15; pointer-events: none; perspective: 1200px; }
+  .node {
+    position: absolute; left: 0; top: 0; padding: 0; border: 0; cursor: pointer;
+    pointer-events: auto; overflow: hidden; background: var(--ice);
+    box-shadow: 0 0 0 1px rgba(227,236,242,.08), 0 18px 60px rgba(0,0,0,.55), 0 0 22px rgba(111,179,255,.25);
+    will-change: transform, width, height, border-radius, opacity;
+    transform-style: preserve-3d; backface-visibility: hidden;
+  }
+  .node img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+  .node .tile {
+    position: absolute; inset: 0; display: grid; place-items: center; padding: 8%;
+    background: linear-gradient(160deg, #24344a, #0b1220); color: var(--ice);
+    font: 400 clamp(16px, 2.6vw, 28px)/1.1 var(--serif); text-align: center; pointer-events: none;
+  }
+  .node .veil {
+    position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgba(4,6,11,0) 55%, rgba(4,6,11,.55) 100%);
+  }
+  .node .play {
+    position: absolute; left: 50%; top: 50%; width: 56px; height: 56px; margin: -28px 0 0 -28px;
+    border-radius: 50%; display: grid; place-items: center; pointer-events: none;
+    background: rgba(4,6,11,.5); border: 1px solid rgba(227,236,242,.35);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    transition: transform .3s cubic-bezier(.2,.8,.2,1), background .3s;
+  }
+  .node .play svg { width: 18px; height: 18px; fill: var(--ice); margin-left: 3px; }
+  .node.front:hover .play { transform: scale(1.08); background: rgba(4,6,11,.7); }
+  .node:not(.front) .play { display: none; }
+  .node:focus-visible { outline: 2px solid var(--gilt); outline-offset: 4px; }
+
+  /* ---- caption ---- */
+  .caption {
+    position: fixed; left: 50%; transform: translateX(-50%);
+    bottom: calc(22px + var(--safe-b)); width: min(92vw, 560px);
+    text-align: center; z-index: 16; pointer-events: none;
+  }
+  .caption p { margin: 0; text-shadow: 0 1px 14px rgba(4,6,11,.9); transition: opacity .35s; }
+  .caption .t { font-size: 15px; font-weight: 500; color: var(--ice); line-height: 1.35;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .caption .m { margin-top: 4px; font-size: 12.5px; color: var(--ash); }
+  .caption.fade p { opacity: 0; }
+
+  /* ---- hint (touch only) ---- */
+  .hint {
+    position: fixed; left: 50%; transform: translateX(-50%);
+    z-index: 18; display: none; align-items: center; gap: 10px;
+    font-size: 12.5px; color: var(--ash); text-shadow: 0 1px 12px rgba(4,6,11,.9);
+    transition: opacity .6s;
+  }
+  .hint.on { display: flex; }
+  .hint.off { opacity: 0; pointer-events: none; }
+  .hint button {
+    font: inherit; font-weight: 500; color: var(--ice); cursor: pointer;
+    background: rgba(4,6,11,.45); border: 1px solid rgba(227,236,242,.25); border-radius: 999px; padding: 7px 12px;
+  }
+
+  /* ---- player ---- */
+  .player {
+    position: fixed; inset: 0; z-index: 40; display: grid; grid-template-rows: auto 1fr;
+    background: rgba(4,6,11,.72); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    opacity: 0; transition: opacity .35s;
+  }
+  .player[hidden] { display: none; }
+  .player.on { opacity: 1; }
+  .player-bar {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: calc(18px + var(--safe-t)) 22px 12px;
+  }
+  .player-bar p { margin: 0; font: 400 22px/1.2 var(--serif); color: var(--ice); }
+  .player-bar button {
+    flex: none; font: 500 13px var(--sans); color: var(--ice); cursor: pointer;
+    background: rgba(227,236,242,.06); border: 1px solid rgba(227,236,242,.3); border-radius: 999px; padding: 8px 14px;
+  }
+  .player-bar button:hover { background: rgba(227,236,242,.14); }
+  .player-frame { display: grid; place-items: center; padding: 0 16px calc(24px + var(--safe-b)); }
+  .player-frame .box {
+    width: min(100%, 1120px, calc((100vh - 140px) * 16 / 9)); aspect-ratio: 16 / 9;
+    background: #000; border-radius: 10px; overflow: hidden;
+    box-shadow: 0 30px 90px rgba(0,0,0,.7), 0 0 0 1px rgba(227,236,242,.08);
+  }
+  .player-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+  @media (max-width: 700px) {
+    .hud { left: 18px; right: 18px; }
+    .brand h1 { font-size: 24px; }
+    .brand p { font-size: 12px; max-width: 26ch; }
+    .yt { font-size: 12px; padding: 7px 10px; }
+    .player-bar p { font-size: 17px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .epigraph { transition: opacity .4s; }
+    .node .play { transition: none; }
+  }
+
+  noscript p { position: fixed; left: 22px; bottom: 22px; color: var(--ash); z-index: 50; }
+</style>
+</head>
+<body>
+<canvas id="fractal" aria-hidden="true"></canvas>
+<div id="fallback" aria-hidden="true"></div>
+
+<header class="hud">
+  <div class="brand">
+    <h1>Seiler Asterces</h1>
+    <p>The visual and audio laboratory of Secrets Are Lies</p>
+  </div>
+  <a class="yt" href="https://www.youtube.com/@secretsarelies9681" target="_blank" rel="noopener">Watch on YouTube</a>
+</header>
+
+<p class="epigraph" id="epigraph"><span>Where there is a Will</span> <span>there is a Way</span></p>
+
+<section class="ring" id="ring" aria-label="Videos"></section>
+
+<div class="caption" id="caption" aria-live="polite">
+  <p class="t" id="capTitle"></p>
+  <p class="m" id="capMeta"></p>
+</div>
+
+<div class="hint" id="hint">
+  <span id="hintText">Swipe to browse. Tilt to drift.</span>
+  <button type="button" id="motionBtn" hidden>Turn on motion</button>
+</div>
+
+<div class="player" id="player" role="dialog" aria-modal="true" aria-label="Video player" hidden>
+  <div class="player-bar">
+    <p id="playerTitle"></p>
+    <button type="button" id="closePlayer">Close</button>
+  </div>
+  <div class="player-frame"><div class="box"><iframe id="playerFrame" title="YouTube video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div></div>
+</div>
+
+<noscript><p>This page needs JavaScript. <a href="https://www.youtube.com/@secretsarelies9681">Watch on YouTube.</a></p></noscript>
+
+<script>
+(() => {
+  'use strict';
+
+  const CHANNEL_URL = 'https://www.youtube.com/@secretsarelies9681';
+  const UPLOADS_PLAYLIST = 'UUA-0GFM18n5SFP9ZQ51LTWQ';
+  const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const TOUCH = matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
+
+  const $ = (id) => document.getElementById(id);
+  const canvas = $('fractal'), ringEl = $('ring'), epigraph = $('epigraph');
+  const capTitle = $('capTitle'), capMeta = $('capMeta'), caption = $('caption');
+  const hint = $('hint'), motionBtn = $('motionBtn'), hintText = $('hintText');
+  const player = $('player'), playerFrame = $('playerFrame'), playerTitle = $('playerTitle'), closeBtn = $('closePlayer');
+
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  /* ============================================================
+     Shared state: what the person is doing, smoothed
+     ============================================================ */
+  const input = {
+    tilt: { x: 0, y: 0 },          // smoothed, -1..1
+    rawTilt: { x: 0, y: 0 },
+    ringPos: 0, ringTarget: 0,
+    interacted: false,
+  };
+
+  /* ============================================================
+     Fractal: Julia set walking the cardioid of the Mandelbrot set
+     ============================================================ */
+  const VERT = `attribute vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }`;
+  const FRAG = `
+    precision highp float;
+    uniform vec2 u_res; uniform float u_time; uniform vec2 u_c; uniform vec2 u_center;
+    uniform float u_zoom; uniform float u_hue; uniform float u_dim; uniform float u_trap; uniform int u_iter;
+    const int MAXI = 200;
+    vec3 pal(float t){
+      return vec3(0.10,0.16,0.24) + vec3(0.36,0.40,0.42) * cos(6.28318 * (vec3(0.92,1.00,1.08) * t + vec3(0.52,0.60,0.70)));
+    }
+    float hash(vec2 p){ return fract(sin(dot(p, vec2(12.9898,78.233))) * 43758.5453); }
+    void main(){
+      float m = min(u_res.x, u_res.y);
+      vec2 uv = (gl_FragCoord.xy - 0.5 * u_res) / m;
+      float px = u_zoom / m;
+      vec2 z = uv * u_zoom + u_center;
+      vec2 dz = vec2(1.0, 0.0);
+      vec2 tn = vec2(cos(u_trap), sin(u_trap));
+      float n = 0.0, trap = 1e9; bool esc = false;
+      for (int i = 0; i < MAXI; i++) {
+        if (i >= u_iter) break;
+        dz = 2.0 * vec2(z.x*dz.x - z.y*dz.y, z.x*dz.y + z.y*dz.x);
+        z = vec2(z.x*z.x - z.y*z.y, 2.0*z.x*z.y) + u_c;
+        float r2 = dot(z, z);
+        if (r2 > 1e4) { esc = true; break; }
+        trap = min(trap, abs(dot(z, tn)));
+        n += 1.0;
+      }
+      vec3 col;
+      if (esc) {
+        float az = length(z), adz = max(length(dz), 1e-12);
+        float de = 0.5 * az * log(az) / adz;
+        float dpx = de / px;
+        float glow = exp(-dpx / 55.0);
+        float core = exp(-dpx / 5.0);
+        float mu = n + 1.0 - log(log(az)) / log(2.0);
+        col = pal(mu * 0.045 + u_hue) * (0.75 * glow) + vec3(0.86, 0.94, 1.0) * (0.55 * core);
+        col += vec3(0.012, 0.018, 0.030);
+      } else {
+        float vein = exp(-clamp(trap, 0.0, 1.0) * 40.0);
+        col = vec3(0.014, 0.019, 0.033) + vec3(0.035, 0.070, 0.115) * vein;
+      }
+      col *= 1.0 - 0.32 * dot(uv, uv);
+      col += (hash(gl_FragCoord.xy + fract(u_time)) - 0.5) * 0.012;
+      col = mix(col, vec3(0.0), u_dim);
+      gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
+    }`;
+
+  let gl = null, uni = {}, scale = 1, maxScale = 1, iters = 160;
+  const frameTimes = [];
+
+  function initGL() {
+    gl = canvas.getContext('webgl2', { antialias: false, alpha: false, powerPreference: 'high-performance' })
+      || canvas.getContext('webgl', { antialias: false, alpha: false });
+    if (!gl) { document.body.classList.add('no-webgl'); return false; }
+    canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); gl = null; document.body.classList.add('no-webgl'); });
+    const compile = (type, src) => {
+      const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { console.error(gl.getShaderInfoLog(s)); return null; }
+      return s;
+    };
+    let fs = compile(gl.FRAGMENT_SHADER, FRAG);
+    if (!fs) fs = compile(gl.FRAGMENT_SHADER, FRAG.replace('precision highp float;', 'precision mediump float;'));
+    const vs = compile(gl.VERTEX_SHADER, VERT);
+    if (!vs || !fs) { document.body.classList.add('no-webgl'); return false; }
+    const prog = gl.createProgram(); gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { document.body.classList.add('no-webgl'); return false; }
+    gl.useProgram(prog);
+    const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    for (const u of ['u_res','u_time','u_c','u_center','u_zoom','u_hue','u_dim','u_trap','u_iter']) uni[u] = gl.getUniformLocation(prog, u);
+    maxScale = Math.min(devicePixelRatio || 1, TOUCH ? 1.25 : 1.5);
+    scale = TOUCH ? Math.min(maxScale, 0.75) : maxScale;
+    iters = TOUCH ? 120 : 160;
+    resizeGL();
+    return true;
+  }
+
+  function resizeGL() {
+    if (!gl) return;
+    const w = Math.max(1, Math.round(innerWidth * scale)), h = Math.max(1, Math.round(innerHeight * scale));
+    if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; gl.viewport(0, 0, w, h); }
+  }
+
+  // Slightly inside the main cardioid: connected, intricate Julia sets for every angle.
+  function cardioidC(theta, rho) {
+    const c1 = Math.cos(theta), s1 = Math.sin(theta), c2 = Math.cos(2*theta), s2 = Math.sin(2*theta);
+    return [rho * (0.5*c1 - 0.25*c2), rho * (0.5*s1 - 0.25*s2)];
+  }
+
+  let dim = 0, dimTarget = 0;
+  function drawFractal(t) {
+    if (!gl) return;
+    const tm = REDUCED ? 0 : t;
+    const theta = 2.2 + tm * 0.015 + input.ringPos * 0.22 + input.tilt.x * 0.05;
+    const rho = 0.992 + input.tilt.y * 0.004;
+    const c = cardioidC(theta, rho);
+    const zoom = (TOUCH ? 1.2 : 1.35) * (1 + 0.06 * Math.sin(tm * 0.07));
+    const cx = 0.08 * Math.sin(tm * 0.031) + input.tilt.x * 0.12;
+    const cy = 0.06 * Math.cos(tm * 0.023) - input.tilt.y * 0.10;
+    dim += (dimTarget - dim) * 0.08;
+    gl.uniform2f(uni.u_res, canvas.width, canvas.height);
+    gl.uniform1f(uni.u_time, t);
+    gl.uniform2f(uni.u_c, c[0], c[1]);
+    gl.uniform2f(uni.u_center, cx, cy);
+    gl.uniform1f(uni.u_zoom, zoom);
+    gl.uniform1f(uni.u_hue, tm * 0.004 + input.ringPos * 0.03);
+    gl.uniform1f(uni.u_dim, dim);
+    gl.uniform1f(uni.u_trap, tm * 0.03 + input.tilt.y * 0.2);
+    gl.uniform1i(uni.u_iter, iters);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+
+  // Adapt render resolution to what the device can sustain.
+  function adapt(dt) {
+    if (!gl || playerOpen) return;
+    frameTimes.push(dt);
+    if (frameTimes.length < 45) return;
+    const avg = frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length;
+    frameTimes.length = 0;
+    if (avg > 24 && scale > 0.4) { scale = Math.max(0.4, scale * 0.8); resizeGL(); }
+    else if (avg < 10 && scale < maxScale) { scale = Math.min(maxScale, scale * 1.12); resizeGL(); }
+  }
+
+  /* ============================================================
+     Videos: nodes on an orbit; the front one is the stage
+     ============================================================ */
+  let videos = [], nodes = [], frontIndex = -1;
+  const geo = {};
+
+  function layoutGeo() {
+    const W = innerWidth, H = innerHeight, mobile = W < 700;
+    const safeB = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--safe-b')) || 0;
+    geo.mobile = mobile;
+    geo.cardW = mobile ? Math.min(W * 0.68, 340) : Math.min(W * 0.32, 420);
+    geo.cardH = geo.cardW * 9 / 16;
+    const capH = mobile ? 74 : 80, bottomPad = (mobile ? 22 : 32) + safeB;
+    geo.Ry = mobile ? Math.max(64, H * 0.10) : Math.max(96, H * 0.13);
+    geo.Rx = mobile ? W * 0.62 : Math.min(W * 0.42, 640);
+    geo.cx = W / 2;
+    geo.cy = H - bottomPad - capH - geo.cardH / 2 - geo.Ry;
+    geo.dot = mobile ? 10 : 12;
+    // caption sits just under the front card
+    caption.style.bottom = bottomPad + 'px';
+    caption.style.width = Math.max(geo.cardW, 260) + 'px';
+    // hint sits above the ring top
+    hint.style.top = Math.max(geo.cy - geo.Ry - 44, H * 0.5) + 'px';
+    const N = Math.max(nodes.length, 1);
+    geo.step = (2 * Math.PI) / N;
+    const dNb = (Math.cos(geo.step) + 1) / 2;                 // depth of the front card's neighbour
+    const target = mobile ? 0.24 : 0.30;                        // how big the neighbour may get
+    geo.k = dNb > 0.01 && dNb < 0.999 ? clamp(Math.log(target) / Math.log(dNb), 3, 26) : 3;
+  }
+
+  function buildNodes() {
+    ringEl.innerHTML = '';
+    nodes = videos.map((v, i) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'node';
+      b.setAttribute('aria-label', v.title);
+      if (v.id) {
+        const img = document.createElement('img');
+        img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+        img.src = `https://i.ytimg.com/vi/${v.id}/hq720.jpg`;
+        img.onerror = () => { img.onerror = null; img.src = `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`; };
+        b.appendChild(img);
+      } else {
+        const tile = document.createElement('div'); tile.className = 'tile'; tile.textContent = v.title; b.appendChild(tile);
+      }
+      const veil = document.createElement('div'); veil.className = 'veil'; b.appendChild(veil);
+      const play = document.createElement('div'); play.className = 'play';
+      play.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l14-8.5z"/></svg>';
+      b.appendChild(play);
+      b.addEventListener('click', (e) => {
+        if (dragMoved) return;
+        if (i === nearestIndex()) openPlayer(v); else goTo(i);
+      });
+      ringEl.appendChild(b);
+      return b;
+    });
+    layoutGeo();
+    updateCaption(true);
+  }
+
+  const nearestIndex = () => nodes.length ? ((Math.round(input.ringPos) % nodes.length) + nodes.length) % nodes.length : -1;
+
+  function goTo(i) {
+    // shortest way around the ring
+    const N = nodes.length; if (!N) return;
+    const cur = input.ringTarget;
+    let delta = ((i - cur) % N + N) % N; if (delta > N / 2) delta -= N;
+    input.ringTarget = cur + delta;
+    input.interacted = true;
+  }
+
+  function drawRing() {
+    const N = nodes.length; if (!N) return;
+    const { cx, cy, Rx, Ry, cardW, cardH, dot, step, k } = geo;
+    const tx = input.tilt.x, ty = input.tilt.y;
+    for (let i = 0; i < N; i++) {
+      let a = (i - input.ringPos) * step;
+      a = Math.atan2(Math.sin(a), Math.cos(a));                 // wrap to -π..π
+      const d = (Math.cos(a) + 1) / 2;                          // 1 = front
+      const s = Math.pow(d, k);
+      const w = lerp(dot, cardW, s), h = lerp(dot, cardH, s);
+      const x = cx + Rx * Math.sin(a) + tx * 26 * d;
+      const y = cy + Ry * Math.cos(a) + ty * 10 * d;
+      const r = lerp(dot / 2, 10, s);
+      const el = nodes[i];
+      el.style.width = w + 'px'; el.style.height = h + 'px'; el.style.borderRadius = r + 'px';
+      el.style.opacity = (0.35 + 0.65 * d).toFixed(3);
+      el.style.zIndex = Math.round(d * 100);
+      el.style.transform = `translate3d(${(x - w/2).toFixed(1)}px, ${(y - h/2).toFixed(1)}px, 0) rotateY(${(tx * 7 * s).toFixed(2)}deg) rotateX(${(-ty * 5 * s).toFixed(2)}deg)`;
+      const img = el.firstElementChild; if (img) img.style.opacity = s.toFixed(3);
+      el.style.boxShadow = s > 0.6
+        ? `0 0 0 1px rgba(227,236,242,.10), 0 22px 70px rgba(0,0,0,.6), 0 0 30px rgba(111,179,255,${(0.10 * s).toFixed(3)})`
+        : `0 0 ${(6 + 14 * (1 - d)).toFixed(0)}px rgba(111,179,255,${(0.55 - 0.3 * d).toFixed(2)}), 0 0 0 1px rgba(227,236,242,.15)`;
+      el.classList.toggle('front', i === frontIndex);
+    }
+  }
+
+  let capTimer = 0;
+  function updateCaption(immediate) {
+    const i = nearestIndex();
+    if (i === frontIndex && !immediate) return;
+    frontIndex = i;
+    const v = videos[i]; if (!v) return;
+    const apply = () => {
+      capTitle.textContent = v.title;
+      capMeta.textContent = v.meta || '';
+      caption.classList.remove('fade');
+    };
+    if (immediate) { apply(); return; }
+    caption.classList.add('fade');
+    clearTimeout(capTimer); capTimer = setTimeout(apply, 180);
+  }
+
+  function formatMeta(v) {
+    const parts = [];
+    if (v.published) {
+      const d = new Date(v.published);
+      if (!isNaN(d)) parts.push(new Intl.DateTimeFormat('en', { day: 'numeric', month: 'short', year: 'numeric' }).format(d));
+    }
+    if (typeof v.views === 'number' && v.views > 0) parts.push(new Intl.NumberFormat('en').format(v.views) + (v.views === 1 ? ' view' : ' views'));
+    return parts.join(', ');
+  }
+
+  async function loadVideos() {
+    let list = [];
+    try {
+      const r = await fetch('videos.json', { cache: 'no-cache' });
+      if (r.ok) { const j = await r.json(); list = Array.isArray(j.videos) ? j.videos : []; }
+    } catch (e) { /* fall through to playlist */ }
+    videos = list.filter(v => v && v.id && v.title).map(v => ({ ...v, meta: formatMeta(v) }));
+    if (!videos.length) {
+      videos = [{ id: null, list: UPLOADS_PLAYLIST, title: 'Latest uploads', meta: 'Every video from the channel, newest first' }];
+    }
+    buildNodes();
+  }
+
+  /* ============================================================
+     Player
+     ============================================================ */
+  let playerOpen = false, lastFocus = null;
+  function openPlayer(v) {
+    lastFocus = document.activeElement;
+    const base = 'https://www.youtube-nocookie.com/embed/';
+    playerFrame.src = v.id
+      ? `${base}${v.id}?autoplay=1&rel=0&playsinline=1&modestbranding=1`
+      : `${base}videoseries?list=${v.list}&autoplay=1&rel=0&playsinline=1`;
+    playerTitle.textContent = v.title;
+    player.hidden = false; requestAnimationFrame(() => player.classList.add('on'));
+    playerOpen = true; dimTarget = 0.6;
+    if (gl) { scale = Math.min(scale, 0.45); resizeGL(); }
+    closeBtn.focus();
+  }
+  function closePlayer() {
+    player.classList.remove('on');
+    setTimeout(() => { player.hidden = true; playerFrame.src = 'about:blank'; }, 300);
+    playerOpen = false; dimTarget = 0;
+    if (gl) { scale = TOUCH ? Math.min(maxScale, 0.75) : maxScale; resizeGL(); }
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  closeBtn.addEventListener('click', closePlayer);
+  player.addEventListener('click', (e) => { if (e.target === player || e.target.classList.contains('player-frame')) closePlayer(); });
+  addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && playerOpen) { closePlayer(); return; }
+    if (playerOpen || !nodes.length) return;
+    if (e.key === 'ArrowRight') { input.ringTarget = Math.round(input.ringTarget) + 1; input.interacted = true; }
+    else if (e.key === 'ArrowLeft') { input.ringTarget = Math.round(input.ringTarget) - 1; input.interacted = true; }
+    else if (e.key === 'Enter' && document.activeElement === document.body) openPlayer(videos[nearestIndex()]);
+  });
+
+  /* ============================================================
+     Input: mouse, drag, wheel, device orientation
+     ============================================================ */
+  const isChrome = (t) => t.closest('.hud, .player, .hint');
+
+  let orientActive = false;
+  addEventListener('mousemove', (e) => {
+    if (orientActive || playerOpen) return;
+    input.rawTilt.x = (e.clientX / innerWidth - 0.5) * 2;
+    input.rawTilt.y = (e.clientY / innerHeight - 0.5) * 2;
+  });
+
+  let dragging = false, dragMoved = false, dragStartX = 0, dragStartPos = 0, dragVel = 0, lastX = 0, lastT = 0;
+  addEventListener('pointerdown', (e) => {
+    if (playerOpen || isChrome(e.target) || nodes.length < 2) return;
+    dragging = true; dragMoved = false; dragStartX = lastX = e.clientX; dragStartPos = input.ringTarget; dragVel = 0; lastT = performance.now();
+  });
+  addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    const dx = e.clientX - dragStartX;
+    if (Math.abs(dx) > 6) dragMoved = true;
+    const perNode = Math.max(geo.Rx * Math.max(Math.sin(geo.step), 0.45), 60);
+    input.ringTarget = dragStartPos - dx / perNode;
+    input.ringPos += (input.ringTarget - input.ringPos) * 0.5;     // follow the finger closely
+    const now = performance.now(); const dt = Math.max(now - lastT, 1);
+    dragVel = (e.clientX - lastX) / dt; lastX = e.clientX; lastT = now;
+  });
+  const endDrag = () => {
+    if (!dragging) return; dragging = false;
+    if (dragMoved) {
+      input.interacted = true;
+      const fling = clamp(-dragVel * 6, -2, 2);
+      input.ringTarget = Math.round(input.ringTarget + fling);
+      dismissHint();
+    }
+    setTimeout(() => { dragMoved = false; }, 0);
+  };
+  addEventListener('pointerup', endDrag); addEventListener('pointercancel', endDrag);
+
+  let wheelTimer = 0;
+  addEventListener('wheel', (e) => {
+    if (playerOpen || nodes.length < 2 || isChrome(e.target)) return;
+    e.preventDefault();
+    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    input.ringTarget += clamp(delta, -60, 60) / 220; input.interacted = true;
+    clearTimeout(wheelTimer); wheelTimer = setTimeout(() => { input.ringTarget = Math.round(input.ringTarget); }, 140);
+  }, { passive: false });
+
+  // Device orientation: deltas from a slowly re-centring baseline, so it responds to movement, not posture.
+  let base = null;
+  function onOrient(e) {
+    if (e.beta == null || e.gamma == null) return;
+    orientActive = true;
+    let bx = e.gamma, by = e.beta;
+    const ang = (screen.orientation && screen.orientation.angle) || window.orientation || 0;
+    if (ang === 90) { const t = bx; bx = by; by = -t; } else if (ang === -90 || ang === 270) { const t = bx; bx = -by; by = t; }
+    if (!base) base = { x: bx, y: by };
+    base.x += (bx - base.x) * 0.004; base.y += (by - base.y) * 0.004;
+    input.rawTilt.x = clamp((bx - base.x) / 22, -1, 1);
+    input.rawTilt.y = clamp((by - base.y) / 22, -1, 1);
+  }
+  function startMotion() {
+    addEventListener('deviceorientation', onOrient, true);
+    motionBtn.hidden = true; hintText.textContent = 'Swipe to browse. Tilt to drift.';
+  }
+  function setupMotion() {
+    if (!TOUCH) return;
+    hint.classList.add('on');
+    const needsPermission = typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function';
+    if (needsPermission) {
+      motionBtn.hidden = false; hintText.textContent = 'Swipe to browse.';
+      motionBtn.addEventListener('click', () => {
+        DeviceOrientationEvent.requestPermission().then((s) => { if (s === 'granted') startMotion(); else motionBtn.hidden = true; }).catch(() => { motionBtn.hidden = true; });
+      });
+    } else if (typeof DeviceOrientationEvent !== 'undefined') {
+      startMotion();
+    } else {
+      hintText.textContent = 'Swipe to browse.';
+    }
+  }
+  let hintDismissed = false;
+  function dismissHint() {
+    if (hintDismissed || !motionBtn.hidden) return;   // keep it while the motion button is still needed
+    hintDismissed = true; hint.classList.add('off');
+  }
+
+  /* ============================================================
+     Frame loop
+     ============================================================ */
+  let last = performance.now(), running = true;
+  function frame(now) {
+    if (!running) return;
+    const dt = now - last; last = now;
+    const t = now / 1000;
+    const k = REDUCED ? 0.5 : 1 - Math.pow(0.001, dt / 1000);        // smoothing independent of frame rate
+    input.tilt.x += (input.rawTilt.x - input.tilt.x) * k * 0.45;
+    input.tilt.y += (input.rawTilt.y - input.tilt.y) * k * 0.45;
+    if (!dragging) input.ringPos += (input.ringTarget - input.ringPos) * (REDUCED ? 0.5 : k * 0.9);
+    if (Math.abs(input.ringTarget - input.ringPos) < 0.0005) input.ringPos = input.ringTarget;
+    epigraph.style.transform = `translate(calc(-50% + ${(-input.tilt.x * 8).toFixed(1)}px), calc(-50% + ${(-input.tilt.y * 6).toFixed(1)}px))`;
+    drawFractal(t);
+    drawRing();
+    updateCaption(false);
+    adapt(dt);
+    requestAnimationFrame(frame);
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    running = !document.hidden;
+    if (running) { last = performance.now(); requestAnimationFrame(frame); }
+  });
+  addEventListener('resize', () => { resizeGL(); layoutGeo(); });
+
+  /* ============================================================
+     Boot
+     ============================================================ */
+  initGL();
+  setupMotion();
+  layoutGeo();
+  loadVideos();
+  requestAnimationFrame(frame);
+  setTimeout(() => epigraph.classList.add('on'), REDUCED ? 100 : 900);
+})();
+</script>
+</body>
+</html>

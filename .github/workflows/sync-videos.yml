@@ -1,0 +1,40 @@
+name: Sync videos from YouTube
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"      # every 6 hours
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-videos
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Fetch channel feed
+        run: python3 scripts/sync_videos.py
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- videos.json; then
+            echo "videos.json unchanged"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add videos.json
+          git commit -m "Sync videos from YouTube"
+          git push
