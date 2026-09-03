@@ -5,8 +5,17 @@
     "id": "UCA-0GFM18n5SFP9ZQ51LTWQ",
     "url": "https://www.youtube.com/@secretsarelies9681"
   },
-  "updated": "2026-09-03T12:38:46Z",
+  "updated": "2026-09-03T18:32:29Z",
   "videos": [
+    {
+      "id": "V_JnL89VUtY",
+      "title": "Azure Drift: 2-Hour Inverted ASCII Rain & Binaural Minimal Soundscape",
+      "published": "2026-09-03T16:03:33+00:00",
+      "thumbnail": "https://i3.ytimg.com/vi/V_JnL89VUtY/hqdefault.jpg",
+      "views": 3,
+      "description": "Step into a light-mode ambient space defined by layered, minimal noise textures and high-contrast azure data cascades.\n\nThis installment uses overlapped acoustic room textures phase-shifted across the stereo field using binaural panning. Headphone playback is recommended to experience the subtle spatial depth as the noise layers drift against one another. The visualizer renders an inverted azure s",
+      "url": "https://www.youtube.com/watch?v=V_JnL89VUtY"
+    },
     {
       "id": "7CwUc4jmQEM",
       "title": "Magenta Drift: 2-Hour Inverted ASCII Rain & Generative Sub-Bass Soundscape",
@@ -84,7 +93,7 @@
       "title": "Copper Gold Matrix OS | 2-Hour Trip-Hop Beats, Scratch & Tape Delay Focus",
       "published": "2026-08-25T15:23:29+00:00",
       "thumbnail": "https://i1.ytimg.com/vi/4_qWJ2ms4MI/hqdefault.jpg",
-      "views": 114,
+      "views": 115,
       "description": "Welcome back to Secrets Are Lies.\n\nYou matter, your presence is deeply appreciated, and I am grateful you are sharing this time and space with me today.\n\nThis 2-hour audio-visual experience fuses atmospheric trip-hop beats with heavy dub tape delays, textured FX, and phased ambient loops. Carefully arranged and mastered in Logic Pro, the track utilizes instrument loops cut to varying length ratios",
       "url": "https://www.youtube.com/watch?v=4_qWJ2ms4MI"
     },
@@ -111,7 +120,7 @@
       "title": "Matrix Rain: Abyssal Ocean (2-Hour Beatless Ambient Music)",
       "published": "2026-08-23T12:43:56+00:00",
       "thumbnail": "https://i4.ytimg.com/vi/CZj0XIjICrI/hqdefault.jpg",
-      "views": 70,
+      "views": 71,
       "description": "Welcome back to Secrets Are Lies.\n\nYou matter, you are appreciated, and I'm glad you are here with me.\n\nThis 2-hour audio-visual experience is designed for deep focus, meditation, and relaxation. The audio track features a completely beatless ambient soundscape driven by two sustained instruments, carefully arranged and mastered in Logic Pro to provide an uninterrupted, calming atmosphere without ",
       "url": "https://www.youtube.com/watch?v=CZj0XIjICrI"
     },
@@ -120,7 +129,7 @@
       "title": "Neon Matrix Rain OS | 2-Hour Ambient Generative Visualizer",
       "published": "2026-08-21T14:22:36+00:00",
       "thumbnail": "https://i4.ytimg.com/vi/OZZAYY08hnY/hqdefault.jpg",
-      "views": 69,
+      "views": 71,
       "description": "You matter, you are appreciated, and I thank you for being here.\n\nPrepare to fall into this immersive, two-hour generative ecosystem featuring custom-coded HTML canvas visualizers and deep atmospheric audio.\n\nThe visual engine renders a continuous \"Matrix Rain\" data stream utilizing an \"80s Neon\" theme. The system dynamically shifts its vibrant yellow and green hues across a 180-degree spectrum ov",
       "url": "https://www.youtube.com/watch?v=OZZAYY08hnY"
     },
@@ -129,18 +138,9 @@
       "title": "Analog Slow Sweep: 2-Hour Ambient Generative Visualizer",
       "published": "2026-08-20T22:31:06+00:00",
       "thumbnail": "https://i3.ytimg.com/vi/j2DTxuXQOfs/hqdefault.jpg",
-      "views": 99,
+      "views": 102,
       "description": "Welcome back to the visual and audio laboratory of Secrets Are Lies. \n\nYou matter, and I appreciate you being here.\n\nThis session features a continuous, beatless ambient soundscape paired with our custom Meditative Data OS visualizer.  \n\nProduced in Logic Pro, the audio architecture is built around two sustained instruments utilizing deep \"Analog Slow Sweep\" synthesizers. As reflected in the exten",
       "url": "https://www.youtube.com/watch?v=j2DTxuXQOfs"
-    },
-    {
-      "id": "0EFrNbqGfiY",
-      "title": "Architecture of the Storm | 2-Hour Real Midwest Thunderstorm & Generative Visualizer",
-      "published": "2026-08-17T14:57:54+00:00",
-      "thumbnail": "https://i1.ytimg.com/vi/0EFrNbqGfiY/hqdefault.jpg",
-      "views": 24,
-      "description": "A two-hour continuous recording and mastering of a real Midwest thunderstorm. Paired with a custom, multi-lingual ASCII canvas engine that shifts under moonlit lighting and gentle lightning flashes, this space was created to let you breathe deeply, ground yourself, and unwind.\n  \nWherever you are right now, know that you matter, you have a place, and you belong. Let the architecture of the sound a",
-      "url": "https://www.youtube.com/watch?v=0EFrNbqGfiY"
     }
   ]
 }
