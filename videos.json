@@ -5,14 +5,23 @@
     "id": "UCA-0GFM18n5SFP9ZQ51LTWQ",
     "url": "https://www.youtube.com/@secretsarelies9681"
   },
-  "updated": "2026-09-14T01:05:38Z",
+  "updated": "2026-09-14T12:38:52Z",
   "videos": [
+    {
+      "id": "nlRSfZXK_bk",
+      "title": "Indo-Pacific Crimson Reef: 2 Hours Dark Ambient Soundscape & Hanzi ASCII Coral Reef Visualizer",
+      "published": "2026-09-14T03:12:42+00:00",
+      "thumbnail": "https://i3.ytimg.com/vi/nlRSfZXK_bk/hqdefault.jpg",
+      "views": 5,
+      "description": "Immerse yourself in a 2-hour relaxing ambient journey featuring an original soundtrack composed in Logic and a custom-coded generative visualizer. This unique text-based animation recreates an Indo-Pacific coral reef using a flowing mosaic of Unicode characters, including Kanji, Egyptian Hieroglyphs, and scientific symbols. Watch as digital fish, swaying seaweed, and bubbles drift through deep cya",
+      "url": "https://www.youtube.com/watch?v=nlRSfZXK_bk"
+    },
     {
       "id": "3FAi1pRh7kw",
       "title": "Indo-Pacific Ocean Depth: 2 Hours Dark Ambient Soundscape & Hanzi ASCII Coral Reef Visualizer",
       "published": "2026-09-13T14:06:27+00:00",
       "thumbnail": "https://i4.ytimg.com/vi/3FAi1pRh7kw/hqdefault.jpg",
-      "views": 16,
+      "views": 26,
       "description": "Escape into the depths of the ocean with this 2-hour immersive ambient soundscape and dynamic ASCII/Hanzi code mosaic visualizer. Designed to resemble the rich marine ecosystem of the Indo-Pacific reef, this piece features ultra-deep sub-bass frequencies (50 BPM), lush synth swells, and mesmerizing generative character art.\n\nPerfect for deep sleep, study sessions, coding focus, meditation, or stre",
       "url": "https://www.youtube.com/watch?v=3FAi1pRh7kw"
     },
@@ -21,7 +30,7 @@
       "title": "Indo-Pacific Ocean Drift: 2 Hours Deep Ambient Soundscape & Hanzi ASCII Coral Reef Visualizer",
       "published": "2026-09-12T17:26:44+00:00",
       "thumbnail": "https://i4.ytimg.com/vi/w5oU5QR6au0/hqdefault.jpg",
-      "views": 38,
+      "views": 48,
       "description": "Escape into the depths of the ocean with this 2-hour immersive ambient soundscape and dynamic ASCII/Hanzi code mosaic visualizer. Designed to resemble the rich marine ecosystem of the Indo-Pacific reef, this piece features ultra-deep sub-bass frequencies (50 BPM), lush synth swells, and mesmerizing generative character art.\n\nPerfect for deep sleep, study sessions, coding focus, meditation, or stre",
       "url": "https://www.youtube.com/watch?v=w5oU5QR6au0"
     },
@@ -102,7 +111,7 @@
       "title": "Indigo Drift: 2-Hour Inverted ASCII Rain & Deep Ambient Drone",
       "published": "2026-09-04T04:02:10+00:00",
       "thumbnail": "https://i3.ytimg.com/vi/N6Yp0JOI7z0/hqdefault.jpg",
-      "views": 37,
+      "views": 38,
       "description": "Welcome back to the visual and audio laboratory of Secrets Are Lies. Continuing the channel's exploration of deep frequencies and generative ecosystems, this session initiates the \"Deep Indigo\" theme of the Meditative Data OS. The visual engine contrasts dark, vibrant symbols against a warm, earthy papyrus background, utilizing an algorithmic flow of Kanji, ancient petroglyphs, Greek letters, and ",
       "url": "https://www.youtube.com/watch?v=N6Yp0JOI7z0"
     },
@@ -132,15 +141,6 @@
       "views": 58,
       "description": "Enter an inverted generative soundscape where low-frequency sub-bass drones meet dynamic light-mode data cascades.\n\nThis piece blends resonant 40Hz sub-bass waves, atmospheric room textures, and delicate metallic chimes with a real-time single-file HTML/Canvas visualizer engine. Cascading through extended Unicode sets—including DOS blocks, Greek, Ge'ez, Arabic glyphs, and mathematical symbols—the ",
       "url": "https://www.youtube.com/watch?v=xQ3gOtHG9sI"
-    },
-    {
-      "id": "u9vgVGA8ux8",
-      "title": "Alien Megacity Vista: 2-Hour Ambient Dub & ASCII Visualizer (40Hz Sub-Bass)",
-      "published": "2026-08-31T12:12:00+00:00",
-      "thumbnail": "https://i2.ytimg.com/vi/u9vgVGA8ux8/hqdefault.jpg",
-      "views": 42,
-      "description": "Welcome to an immersive audio-visual descent into the Alien Megacity Vista. This 2-hour journey features original ambient and trip-hop soundscapes built on 40Hz sub-bass drones, expansive tape delay, and deep binaural panning, carefully mastered to induce deep focus and relaxation.  \n\nThe accompanying visualizer is a deterministic, real-time simulation coded entirely in a single file of HTML, CSS,",
-      "url": "https://www.youtube.com/watch?v=u9vgVGA8ux8"
     }
   ]
 }
